@@ -8,9 +8,9 @@ body{
 .footer-custom{
     text-align: center;
     position: absolute;
-    bottom: 0;
     width: 100%;
     background-color: #343a40;
+    margin-top: 15px;
     padding-top: 25px;
     color: white;
 }
@@ -43,4 +43,9 @@ body{
 
 .product-page-price{
     font-size: 20px;
+}
+
+.cart-icon{
+    height: 25px;
+    padding-left: 10px;
 }

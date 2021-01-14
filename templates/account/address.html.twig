@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+    <a href="{{ path('account_address_add') }}" class="btn btn-info btn-sm float-right">Add address</a>
+    <h1>My Address</h1>
+    Welcome <b>{{ app.user.firstname }}</b> in you Address book !<br/>
+    <a href="{{ path('account')}}">Back to account</a>
+    <hr>
+
+    {%  if app.user.severalAddress|length ==0 %}
+        <p class="text-center">You never had address in your account</p>
+
+        {% else %}
+            {%  for address in app.user.severalAddress %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ address.name }}</h5>
+                            <p class="card-text">
+                                {{ address.address }}, <br/>
+                                {{ address.postal }} - {{ address.city }} - {{ address.country }}
+                            </p>
+                            <a href="{{  path('account_address_edit', {'id' : address.id}) }}">Edit</a> | <a href="{{ path('account_address_delete', {'id' : address.id}) }}">Delete</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+    {% endfor %}
+    {% endif %}
+
+{% endblock %}
