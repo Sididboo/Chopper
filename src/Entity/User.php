@@ -52,9 +52,19 @@ class User implements UserInterface
      */
     private $SeveralAddress;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $SeveralOrders;
+
     public function __construct()
     {
         $this->SeveralAddress = new ArrayCollection();
+        $this->SeveralOrders = new ArrayCollection();
+    }
+
+    public function getFullName(): string{
+        return $this->getFirstname().' '. $this->getLastname();
     }
 
     public function getId(): ?int
@@ -183,6 +193,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($severalAddress->getUser() === $this) {
                 $severalAddress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getSeveralOrders(): Collection
+    {
+        return $this->SeveralOrders;
+    }
+
+    public function addSeveralOrder(Order $severalOrder): self
+    {
+        if (!$this->SeveralOrders->contains($severalOrder)) {
+            $this->SeveralOrders[] = $severalOrder;
+            $severalOrder->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeveralOrder(Order $severalOrder): self
+    {
+        if ($this->SeveralOrders->removeElement($severalOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($severalOrder->getUser() === $this) {
+                $severalOrder->setUser(null);
             }
         }
 
