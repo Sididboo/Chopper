@@ -3,6 +3,9 @@
 {% block content %}
 
 <h1>Register</h1>
+    {% if notification %}
+        <div class="alert alert-info">{{ notification }}</div>
+    {% endif %}
 
     {{ form(form) }}
 

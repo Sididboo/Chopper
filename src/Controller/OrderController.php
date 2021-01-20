@@ -8,6 +8,8 @@ use App\Entity\OrderDetails;
 use App\Form\OrderType;
 use App\Model\Cart;
 use Doctrine\ORM\EntityManagerInterface;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,6 +76,8 @@ class OrderController extends AbstractController
             $delivery_content .= '<br>'. $delivery->getPostal().' '. $delivery->getCity();
             $delivery_content .= '<br>'. $delivery->getCountry();
 
+            $reference = $date->format('dmY').'-'.uniqid();
+            $order->setReference($reference);
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);
 
@@ -87,6 +91,7 @@ class OrderController extends AbstractController
 
             foreach ($cart->getFull() as $product)
             {
+
                 $order_detail = new OrderDetails();
                 $order_detail->setMyOrder($order);
                 $order_detail->setProduct($product['product']->getName());
@@ -95,11 +100,14 @@ class OrderController extends AbstractController
                 $order_detail->setTotal($product['product']->getPrice() * $product['quantity']);
                 $this->entityManager->persist($order_detail);
             }
+
             $this->entityManager->flush();
+
             return $this->render('order/add.html.twig',[
                 'cart' => $cart->getFull(),
                 'carrier' => $carrier,
-                'delivery' => $delivery_content
+                'delivery' => $delivery_content,
+                'reference' => $order->getReference()
             ]);
         }
 

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+    <h1>My order</h1>
+    Welcome <b>{{ app.user.firstname }}</b> in you Order book !<br/>
+    <a href="{{ path('account')}}">Back to account</a>
+    <hr>
+
+    {%  if severalOrder|length ==0 %}
+        <hr>
+        <p class="text-center">You never do order in your account</p>
+
+    {% else %}
+        <table class="table mt-4">
+            <thead>
+            <tr>
+                <th scope="col">Created At</th>
+                <th scope="col">Reference</th>
+                <th scope="col">Product(s)</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {%  for order in severalOrder %}
+                <tr>
+                    <td><span class="badge badge-secondary">{{ order.createdAt|date('d/m/Y') }}</span></td>
+                    <td>{{ order.reference }}</td>
+                    <td>{{ order.orderDetails | length}}</td>
+                    <td>{{ ((order.carrierPrice + order.getTotal) /100)| number_format(2,',','.') }} €</td>
+                    <td><a href="{{ path('account_order_show', {'reference' : order.reference }) }}" >Show my order</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+{% endblock %}
