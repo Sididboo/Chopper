@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Oh, i think we are in trouble !?{% endblock %}
+
+{% block content %}
+    <h2>Oops ! You order was a cancel</h2>
+    Hello {{ order.user.firstname }} {{ order.user.lastname }}, <br>
+    You will receive an email with the confirmation of your order n°<strong>{{ order.reference }}</strong> was canceled ! (<strong>{{ order.user.email }}</strong>)
+    <hr>
+    To retry your order click  <a href="{{ path('order') }}">here</a> !
+{% endblock %}
