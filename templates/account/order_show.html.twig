@@ -6,6 +6,15 @@
     <h1>My order {{ order.reference }}</h1>
     <a href="{{ path('account_order')}}">Back to account</a>
     <hr>
+    <strong>State order : </strong>
+    {% if order.state == 1 %}
+        Order valid
+    {% elseif order.state == 2 %}
+        Order in progress
+    {% elseif order.state == 3 %}
+        Delivery in coming
+    {% endif %}
+    <br />
     <strong>Created At</strong> : {{ order.createdAt|date('d/m/Y') }}<br>
     <strong>Reference</strong> : {{ order.reference }}<br>
     <strong>Carrier choose</strong> : {{ order.carrierName }}

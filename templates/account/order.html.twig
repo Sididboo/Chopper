@@ -27,6 +27,15 @@
             {%  for order in severalOrder %}
                 <tr>
                     <td><span class="badge badge-secondary">{{ order.createdAt|date('d/m/Y') }}</span></td>
+                    <td>
+                        {% if order.state == 1 %}
+                            Order valid
+                            {% elseif order.state == 2 %}
+                                Order in progress
+                            {% elseif order.state == 3 %}
+                            Delivery in coming
+                        {% endif %}
+                    </td>
                     <td>{{ order.reference }}</td>
                     <td>{{ order.orderDetails | length}}</td>
                     <td>{{ ((order.carrierPrice + order.getTotal) /100)| number_format(2,',','.') }} €</td>

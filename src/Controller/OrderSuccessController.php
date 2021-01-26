@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Model\Cart;
+use App\Model\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +29,16 @@ class OrderSuccessController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        if (!$order->getIsPaid()){
+        if ($order->getState() == 0){
             $cart->remove();
-            $order->setIsPaid(1);
+
+            $order->setState(1);
             $this->entityManager->flush();
+
+            $mail = new Mail();
+            $content = "Hello". $order->getUser()->getFirstName()."<br>Mauris pellentesque rutrum diam, et ullamcorper sapien sagittis quis. Donec ipsum dui, suscipit ut faucibus at, iaculis sed massa. Nunc tempus libero enim, ut cursus tortor pellentesque euismod";
+            $mail->Send($order->getUser()->getEmail(), $order->getUser()->getFirstName(), 'Confirmation of you order '.$order->getReference(), $content);
+
         }
 
 

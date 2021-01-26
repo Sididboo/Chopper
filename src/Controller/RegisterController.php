@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Model\Mail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +41,10 @@ class RegisterController extends AbstractController
 
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
+
+                $mail = new Mail();
+                $content = "Hello". $user->getFirstName()."<br>Mauris pellentesque rutrum diam, et ullamcorper sapien sagittis quis. Donec ipsum dui, suscipit ut faucibus at, iaculis sed massa. Nunc tempus libero enim, ut cursus tortor pellentesque euismod";
+                $mail->Send($user->getEmail(), $user->getFirstName(), 'Welcome on eChopper', $content);
 
                 $notification = "Well done for your inscription";
             }else{
