@@ -4,6 +4,9 @@
 
 {% block content %}
     <div class="block-small">
+        {% for message in app.flashes('notice')%}
+            <div class="alert alert-info"> {{ message }}</div>
+        {% endfor %}
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -41,6 +44,7 @@
                 Sign in
             </button>
             <hr>
+            <p><a href="{{ path('reset_password') }}">Forget password</a> ?</p>
             <p>Or <a href="{{ path('register') }}">create a account</a> ?</p>
         </form>
     </div>

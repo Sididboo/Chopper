@@ -26,7 +26,7 @@ class Mail{
                             'Name' => $to_name
                         ]
                     ],
-                    'TemplateID' => 2290087,
+                    'TemplateID' => 2311556,
                     'TemplateLanguage' => true,
                     'Subject' => $subject,
                     'Variable' => [
