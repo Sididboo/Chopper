@@ -1,6 +1,7 @@
 body{
     position: relative;
 }
+
 .navbar-item-custom, .navbar-item-custom a {
     color: white;
 }
