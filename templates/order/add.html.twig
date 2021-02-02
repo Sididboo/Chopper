@@ -71,7 +71,7 @@
                 })
                 .then(function (session) {
                     if (session.error === 'order'){
-                        window.location.replace('{{ path('order')}}')
+                        window.location.replace('{{ path("order") }}')
                     }else {
                         return stripe.redirectToCheckout({sessionId: session.id});
                     }

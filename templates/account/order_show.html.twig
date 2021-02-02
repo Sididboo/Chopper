@@ -3,9 +3,11 @@
 {% block title %}Account{% endblock %}
 
 {% block content %}
-    <h1>My order {{ order.reference }}</h1>
-    <a href="{{ path('account_order')}}">Back to account</a>
-    <hr>
+<h1>My order {{ order.reference }}</h1>
+<a href="{{ path('account_order')}}">Back to account</a>
+<hr>
+
+<!--
     <strong>State order : </strong>
     {% if order.state == 1 %}
         Order valid
@@ -19,30 +21,59 @@
     <strong>Reference</strong> : {{ order.reference }}<br>
     <strong>Carrier choose</strong> : {{ order.carrierName }}
     <hr>
-    <strong>Details :</strong>
+    -->
 
-    <table class="table mt-4">
-        <thead>
+<div class="container p-1 mb-4">
+    <div class="progress">
+        {% if order.state == 1 %}
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+            aria-valuemax="100" style="width: 20%;">
+            20% Order Processed
+        </div>
+        {% elseif order.state == 2 %}
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+            aria-valuemax="100" style="width: 60%;">
+            60% Work in progress
+        </div>
+        {% elseif order.state ==  3 %}
+        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+            aria-valuemax="100" style="width: 80%;">
+            80% Shipping in progress
+        </div>
+        {% elseif order.state == 4 %}
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+            aria-valuemax="100" style="width: 100%;">
+            100% Order arrived at home
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<strong>Details :</strong>
+
+<table class="table mt-4">
+    <thead>
         <tr>
             <th scope="col">Product</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
             <th scope="col">Total</th>
         </tr>
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
         {%  for product in order.orderDetails %}
-            <tr>
-                <td>{{ product.product }}</td>
-                <td>{{ product.quantity }}</td>
-                <td>{{ (product.price / 100) | number_format(2,',','.')}} €</td>
-                <td>{{ (product.total / 100) | number_format(2,',','.')}} €</td>
-            </tr>
+        <tr>
+            <td>{{ product.product }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ (product.price / 100) | number_format(2,',','.')}} €</td>
+            <td>{{ (product.total / 100) | number_format(2,',','.')}} €</td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
-    <div class="text-right">
-        <strong>Delivery : </strong>{{ (order.carrierprice / 100) | number_format(2,',','.')}} €<br>
-        <strong>Total : </strong>{{ ((order.total + order.carrierprice) / 100) | number_format(2,',','.')}} €
-    </div>
+    </tbody>
+</table>
+<div class="text-right">
+    <strong>Delivery : </strong>{{ (order.carrierprice / 100) | number_format(2,',','.')}} €<br>
+    <strong>Total : </strong>{{ ((order.total + order.carrierprice) / 100) | number_format(2,',','.')}} €
+</div>
 {% endblock %}

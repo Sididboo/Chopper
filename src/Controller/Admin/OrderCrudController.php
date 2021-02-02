@@ -38,9 +38,11 @@ class OrderCrudController extends AbstractCrudController
     {
         $updatePreparation = Action::new('updatePreparation', 'Work in progress', 'fas fa-box-open')->linkToCrudAction('updatePreparation');
         $updateDelivery = Action::new('updateDelivery', 'Shipping in progress', 'fas fa-truck')->linkToCrudAction('updateDelivery');
+        $atHome = Action::new('atHome', 'You order is arrived', 'fas fa-home')->linkToCrudAction('atHome');
         return $actions
             ->add('detail',$updatePreparation)
             ->add('detail',$updateDelivery)
+            ->add('detail',$atHome)
             ->add('index', 'detail');
     }
 
@@ -77,6 +79,23 @@ class OrderCrudController extends AbstractCrudController
         return $this->redirect($url);
     }
 
+    public function atHome(AdminContext $context){
+
+        $order = $context->getEntity()->getInstance();
+        $order->setState(4);
+
+        $this->entityManager->flush();
+
+        $this->addFlash('notice', "<span style='color:blue;'> <strong>The order". $order->getReference()." is arrived.</strong>");
+
+        $url = $this->crudURLGenerator->build()
+            ->setController(OrderCrudController::class)
+            ->setAction('index')
+            ->generateUrl();
+
+        return $this->redirect($url);
+    }
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud->setDefaultSort(['id' => 'DESC']);
@@ -96,7 +115,8 @@ class OrderCrudController extends AbstractCrudController
                 'unpaid' => 0,
                 'paid' => 1,
                 'in progress' => 2,
-                'delivery incoming' => 3
+                'delivery incoming' => 3,
+                'at home' => 4
             ]),
             ArrayField::new('orderDetails', 'Product purchase')->hideOnIndex()
         ];

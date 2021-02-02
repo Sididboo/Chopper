@@ -3,14 +3,45 @@
 {% block title %}Account{% endblock %}
 
 {% block content %}
-    <h1>My account</h1>
 
-    Welcome <em>{{ app.user.firstname }}</em> in you account !
-
+    <div class="top-detail">
+            <h2>My account</h2>
+        <br>
+            <p>Welcome <b> {{ app.user.firstname }} </b> in your account !</p>
+        <br />
+    </div>
+<!--
     <hr>
     <a href="{{ path('account_password') }}">- Modify password </a><br />
     <a href="{{ path('account_address') }}">- Manage your addresses</a><br/>
     <a href="{{ path('account_order') }}">- My order </a><br/>
     <hr>
+    -->
 
+    <div class="row">
+        <div class="col-md-4">
+            <div class="account-item text-center rounded">
+                <img src="{{ asset('assets/img/eye-solid.svg')}}" alt="Modify password" class="account-icon"><br />
+                <a href="{{ path('account_password') }}">Modify password</a><br />
+                <p>You can change your password here !</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="account-item text-center rounded">
+                <img src="{{ asset('assets/img/address-book-solid.svg')}}" alt="Modify Address" class="account-icon"><br />
+                <a href="{{ path('account_address') }}">Manage your addresses</a><br />
+                <p>If you want to add or delete address !</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="account-item text-center rounded">
+                <img src="{{ asset('assets/img/box-open-solid.svg')}}" alt="Modify password" class="account-icon"><br />
+                <a href="{{ path('account_order') }}">My order</a><br />
+                <p>Access to your order !</p>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
