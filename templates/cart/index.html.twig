@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+    <h1>My cart</h1>
+
+    {%  if cart | length > 0 %}
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th scope="col">Product</th>
+            <th></th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set total = null %}
+        {% for product in cart %}
+        <tr>
+            <th>
+                <img src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}" height="60px">
+            </th>
+            <td>{{ product.product.name }}</td>
+            <td>
+                <a href="{{ path('decrease_my_cart', {'id' : product.product.id}) }}">
+                    <img src="{{ asset('assets/img/minus-solid.svg') }}" height="12px" alt="">
+                </a>
+                    {{ product.quantity }}
+                <a href="{{ path('add_to_cart', {'id' : product.product.id})}}">
+                    <img src="{{ asset('assets/img/plus-solid.svg') }}" height="12px" alt="">
+                </a>
+            </td>
+            <td>{{ (product.product.price / 100) | number_format(2,',','.')}} €</td>
+            <td>{{ ((product.product.price * product.quantity) / 100) |number_format(2,',','.')}} €</td>
+
+            <td>
+                <a href="{{ path('delete_my_cart', {'id' : product.product.id}) }}">
+                    <img src="{{ asset('assets/img/trash-solid.svg') }}" alt="">
+                </a>
+            </td>
+        </tr>
+            {% set total = total + (product.product.price * product.quantity) %}
+        {%  endfor %}
+        </tbody>
+    </table>
+    <div class="text-right mb-5">
+        <b>Total : </b>{{ (total / 100)| number_format(2,',','.') }} €
+        <a href="{{ path('order') }}" class="btn btn-success btn-block mt-3">Valid your cart</a>
+    </div>
+    {% else %}
+        <hr>
+        <p><b>Your cart is empty</b></p>
+    {% endif %}
+{% endblock %}

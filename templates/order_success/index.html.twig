@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Success for your order !{% endblock %}
+
+{% block content %}
+    <h2>Well Done ! You order was a success</h2>
+    Hello <strong>{{ order.user.firstname }}</strong> <strong>{{ order.user.lastname }}</strong>, <br>
+    Thanks for your order n°<strong>{{ order.reference }}</strong>.<br>
+    You will receive an email with the confirmation of your order ! (<strong>{{ order.user.email }}</strong>)
+    <hr>
+    Your order going to be delivered by {{ order.carrierName }}
+    <hr>
+    To track our order, go to your <a href="{{ path('account_order') }}">account</a> !
+{% endblock %}
