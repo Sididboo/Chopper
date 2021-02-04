@@ -10,11 +10,13 @@
         <div class="col-md-8">
             <h3>{{ product.name }}</h3>
             <p>{{ product.subtitle }}</p>
-            <span class="product-page-price">{{ (product.price / 100) | number_format(2,',','.') }}€ </span>
-            <hr>
+            <br>
             <p>
                 {{ product.description }}
             </p>
+            <br>
+            <span class="product-page-price">{{ (product.price / 100) | number_format(2,',','.') }}€ </span>
+            <br>
             <a href="{{ path('add_to_cart', {'id' :product.id} ) }}" class="btn btn-primary">Add in cart</a>
         </div>
     </div>

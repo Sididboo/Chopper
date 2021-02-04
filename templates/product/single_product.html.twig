@@ -1,3 +1,4 @@
+<!--
 <div class="product-item text-center">
     <a href="{{ path('product', {'slug' : product.slug }) }}">
         <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid">
@@ -5,4 +6,19 @@
     <h5>{{ product.name }}</h5>
     <span class="product-subtitle">{{ product.subtitle }}</span>
     <span class="product-price">{{ (product.price / 100) | number_format(2,',', '.') }}€</span>
+</div>
+-->
+
+
+<div class="card shadow-sm mb-3 rounded border-light product-item" style="width: 13rem;">
+    <a href="{{ path('product', {'slug' : product.slug }) }}"></a>
+        <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="card-img-top img-fluid">
+    </a>
+    <div class="card-body text-center">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <span class="product-price">{{ (product.price / 100) | number_format(2,',', '.') }}€</span>
+        <br>
+        <a href="{{ path('product', {'slug' : product.slug }) }}" class="btn btn-info pt-2 mt-2">Show</a>
+    </div>
 </div>

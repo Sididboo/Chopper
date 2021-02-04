@@ -3,48 +3,55 @@
 {% block carousel %}
 {% endblock %}
 
-        {% block content %}
-        <!-- Affichage des produits les vendus -->
-            <h3>Best seller !</h3>
-            <div class="row">
-            {% for product in products %}
-                <div class="col-md-3">
-                    {% include 'product/single_product.html.twig' %}
-                </div>
-                {% endfor %}
-            </div>
+{% block content %}
+<!-- Affichage des produits les vendus -->
+<div class="isBest">
+    <h3>Best seller !</h3>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3">
+            {% include 'product/single_product.html.twig' %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- START THE FEATURETTES -->
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+    <div class="col-md-7">
+        <h2 class="featurette-heading">
+            Our homemade products are available <span class="text-muted">in all of our stores.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+            semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+            commodo.</p>
+    </div>
+    <div class="col-md-5">
+        <img src="{{ asset('assets/img/pexels-igor-ovsyannykov-205961.jpg') }}" class="img-fluid rounded"
+            alt="The best donuts in the world">
+    </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+    <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">
+            Our stores are open <span class="text-muted">all year round.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+            semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+            commodo.</p>
+    </div>
+    <div class="col-md-5">
+        <img src="{{ asset('assets/img/pexels-dmitry-zvolskiy-2199190.jpg') }}" class="img-fluid rounded"
+            alt="New shop in New York">
+    </div>
+</div>
 
 
-            <!-- START THE FEATURETTES -->
 
-            <hr class="featurette-divider">
+<!-- /END THE FEATURETTES -->
 
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading">
-                        Our homemade products are available <span class="text-muted">in all of our stores.</span></h2>
-                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                </div>
-                <div class="col-md-5">
-                    <img src="{{ asset('assets/img/pexels-igor-ovsyannykov-205961.jpg') }}" class="img-fluid rounded" alt="The best donuts in the world">
-                </div>
-            </div>
-
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading">
-                        Our stores are open <span class="text-muted">all year round.</span></h2>
-                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                </div>
-                <div class="col-md-5">
-                    <img src="{{ asset('assets/img/pexels-dmitry-zvolskiy-2199190.jpg') }}" class="img-fluid rounded" alt="New shop in New York">
-                </div>
-            </div>
-
-
-
-            <!-- /END THE FEATURETTES -->
-
-        {% endblock %}
+{% endblock %}

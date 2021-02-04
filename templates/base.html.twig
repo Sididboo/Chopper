@@ -70,8 +70,7 @@
 <main role="main">
 
 {% if block('carousel') is defined %}
-
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             {% for key,header in headers %}
             <li data-target="#myCarousel" data-slide-to="{{ key }}" {% if key == 0 %}class="active"{% endif %}></li>
@@ -80,7 +79,7 @@
         <div class="carousel-inner">
             {% for key, header in headers %}
             <div class="carousel-item {% if key == 0 %}active{% endif %}">
-                <img src="/uploads/{{ header.illustration }}" alt="Test" style="background-size: cover; ">
+                <img src="/uploads/{{ header.illustration }}" class="img-fluid">
                 <div class="container">
                     <div class="carousel-caption text-left">
                         <h1>{{ header.title }}</h1>
@@ -101,6 +100,7 @@
         </a>
     </div>
 {% endif %}
+
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
